@@ -1,11 +1,10 @@
+import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+import Eos from 'eosjs';
 import React, { Component } from 'react';
-import Eos from 'eosjs'
 import logo from './logo.svg';
+import ExpandRow from './ExpandRow';
 import './App.css';
-import {BootstrapTable, 
-  TableHeaderColumn} from 'react-bootstrap-table';
 import './react-bootstrap-table.css';
-
 
 class App extends Component {
 
@@ -16,18 +15,49 @@ class App extends Component {
 
   getBlocks() {
   }
-
-  getInitialState() {
-    return {
-      rows: ['row 1', 'row 2', 'row 3']
-    }
-  }
   
   render() {
     var data = [
-      // {id: 1, name: 'Gob', value: '2'},
-      // {id: 2, name: 'Buster', value: '5'},
-      // {id: 3, name: 'George Michael', value: '4'}
+      {
+        hash: 1, 
+        action: 'Gob',
+        expand: [ {
+          fieldA: 'test1',
+          fieldB: 'swag',
+          fieldC: Math.random(),
+          fieldD: '123eedd',
+        }, {
+          fieldA: 'test1',
+          fieldC: Math.random(),
+          fieldD: '123eedd',
+        } ]
+      },
+      {
+        hash: 2, 
+        action: 'Gob',
+        expand: [ {
+          fieldA: 'test2',
+          fieldC: Math.random(),
+          fieldD: '123eedd',
+        }, {
+          fieldA: 'test1',
+          fieldC: Math.random(),
+          fieldD: '123eedd',
+        } ]
+      },
+      {
+        hash: 3, 
+        action: 'Gob',
+        expand: [ {
+          fieldA: 'test3',
+          fieldC: Math.random(),
+          fieldD: '123eedd',
+        }, {
+          fieldA: 'test1',
+          fieldC: Math.random(),
+          fieldD: '123eedd',
+        } ]
+      },
     ];
 
     return (
@@ -39,15 +69,8 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <div>
-        <BootstrapTable data={data}>
-          <TableHeaderColumn isKey dataField='hash of block timestamp'>
-            Block Timestamp Hash
-          </TableHeaderColumn>
-          <TableHeaderColumn dataField='actions'>
-            Actions
-          </TableHeaderColumn>
-        </BootstrapTable>
-      </div>
+          <ExpandRow data={data}/>
+        </div>
         <p className="App-intro">
           <button type="button" onClick="getBlocks()"> Load blocks</button>
         </p>
