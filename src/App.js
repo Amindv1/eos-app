@@ -1,8 +1,20 @@
 import React, { Component } from 'react';
+import Eos from 'eosjs'
 import logo from './logo.svg';
 import './App.css';
 
+
 class App extends Component {
+
+  constructor() {
+    super();
+    this.eos = Eos.Testnet();
+  }
+
+  getBlocks() {
+  }
+
+  
   render() {
     return (
       <div className="App">
@@ -11,7 +23,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <p className="App-intro">
-          <button type="button"> Load blocks</button>
+          <button type="button" onClick="getBlocks()"> Load blocks</button>
         </p>
       </div>
     );
