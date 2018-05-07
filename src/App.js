@@ -19,10 +19,18 @@ class App extends Component {
     super(props);
     this.eos = Eos.Localnet({ httpEndpoint: "http://localhost:8888"});
     this.getBlocks = this.getBlocks.bind(this);
+    this.getBlocks();
+  }
+
+  state = {
+    skip: true, // query flag, query will be manual on render
+  }
+
+  fireInitialQuery () {
+    this.setState(prevState => ({ ...prevState, skip: false }))
   }
 
   getBlocks() {
-
     this.eos.getInfo({}).then(result => {
       let lastBlock = result.head_block_num;
       for (let i = 0; i < 10; i++) {
@@ -45,17 +53,10 @@ class App extends Component {
             }}
           });
 
-          const data = this.props.client.readQuery({
-            query: gql`
-            query readBlock {
-              block(raw: String, count: String, timestamp: String) {
-                timestamp
-                raw
-                count
-              }
-            }`
-          });
-          console.log(data);
+          if (i == 9) {
+            console.log('wwwww')
+            this.fireInitialQuery()
+          }
         });
       }
     });
@@ -105,6 +106,15 @@ class App extends Component {
       },
     ];
 
+    const query = gql`
+    query readBlock {
+      block(raw: String, count: String, timestamp: String) {
+        timestamp
+        raw
+        count
+      }
+    }`;
+
     return (
       <div className="App">
       <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
@@ -114,7 +124,18 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <div>
-          <ExpandRow data={data}/>
+        <Query query={query} variables={{}} skip={this.state.skip}>
+          {({ loading, error, data }) => {
+            if (loading) return "Loading...";
+            if (error) return `Error! ${error.message}`;
+
+            console.log(data);
+
+            return (
+              <ExpandRow data={data}/>
+            );
+          }}
+        </Query>
         </div>
         <p className="App-intro">
           <button type="button" onClick={this.getBlocks}> Load blocks</button>
