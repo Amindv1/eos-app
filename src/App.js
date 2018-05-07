@@ -3,16 +3,10 @@ import Eos from 'eosjs';
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import ExpandRow from './ExpandRow';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { HttpLink } from 'apollo-link-http';
-import ApolloClient from 'apollo-client';
-import { withApollo, ApolloProvider, Query } from "react-apollo";
+import { withApollo, Query } from "react-apollo";
 import gql from "graphql-tag";
 import './App.css';
 import './react-bootstrap-table.css';
-import { makeExecutableSchema } from 'graphql-tools';
-import fetch from 'node-fetch';
-import _ from 'lodash';
 
 class App extends Component {
   constructor(props) {
@@ -42,13 +36,10 @@ class App extends Component {
           action
         }
       }`;
-
-      console.log("last bock: ", lastBlock);
       
       for (let i = 0; i < 10; i++) {
         let block_id = lastBlock - i;
         this.eos.getBlock({block_num_or_id: block_id}).then(result => {
-          console.log(result);
           
           this.props.client.writeQuery({
             id: block_id,
@@ -62,7 +53,7 @@ class App extends Component {
 
           data = this.props.client.readQuery({query})
 
-          if (i == 9) {
+          if (i === 9) {
             this.fireInitialQuery()
           }
         });

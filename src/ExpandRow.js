@@ -1,10 +1,10 @@
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
-import React, { Component } from 'react';
+import React from 'react';
 
 class BSTable extends React.Component {
   render() {
     if (this.props.data) {
-      let style = { "table-layout": "fixed", "word-wrap": "break-word", whiteSpace: 'normal' }
+      let style = { "tableLayout": "fixed", "wordWrap": "breakWord", whiteSpace: 'normal' }
       return (
         <BootstrapTable data={ this.props.data }>
           <TableHeaderColumn tdStyle={style} dataField='raw' isKey={true}>Raw data</TableHeaderColumn>
@@ -16,9 +16,6 @@ class BSTable extends React.Component {
 }
 
 class ExpandRow extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   isExpandableRow(row) {
     return true;
@@ -37,7 +34,6 @@ class ExpandRow extends React.Component {
     const options = {
       expandRowBgColor: 'rgb(242, 255, 163)',
     };
-    const data = [];
 
     return (
       <BootstrapTable data={ this.props.data }
