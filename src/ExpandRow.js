@@ -4,12 +4,10 @@ import React, { Component } from 'react';
 class BSTable extends React.Component {
   render() {
     if (this.props.data) {
+      let style = { "table-layout": "fixed", "word-wrap": "break-word", whiteSpace: 'normal' }
       return (
         <BootstrapTable data={ this.props.data }>
-          <TableHeaderColumn dataField='fieldA' isKey={ true }>Field A</TableHeaderColumn>
-          <TableHeaderColumn dataField='fieldB'>Field B</TableHeaderColumn>
-          <TableHeaderColumn dataField='fieldC'>Field C</TableHeaderColumn>
-          <TableHeaderColumn dataField='fieldD'>Field D</TableHeaderColumn>
+          <TableHeaderColumn tdStyle={style} dataField='raw' isKey={true}>Raw data</TableHeaderColumn>
         </BootstrapTable>);
     } else {
       return (<p>?</p>);
@@ -27,8 +25,11 @@ class ExpandRow extends React.Component {
   }
 
   expandComponent(row) {
+    let str = JSON.stringify(row.raw);
+    let newData = [{raw: str}];
+
     return (
-      <BSTable data={ row.expand } />
+      <BSTable data={ newData } />
     );
   }
 

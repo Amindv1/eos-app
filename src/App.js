@@ -23,7 +23,7 @@ class App extends Component {
   }
 
   state = {
-    skip: true, // query flag, query will be manual on render
+    skip: true,
   }
 
   fireInitialQuery () {
@@ -33,28 +33,36 @@ class App extends Component {
   getBlocks() {
     this.eos.getInfo({}).then(result => {
       let lastBlock = result.head_block_num;
+      let data = {block: []};
+      let query = gql`
+      {
+        block {
+          hash
+          raw
+          action
+        }
+      }`;
+
+      console.log("last bock: ", lastBlock);
+      
       for (let i = 0; i < 10; i++) {
         let block_id = lastBlock - i;
         this.eos.getBlock({block_num_or_id: block_id}).then(result => {
           console.log(result);
+          
           this.props.client.writeQuery({
-            query: gql`
-            query writeBlock {
-              block(raw: String, count: String, timestamp: String) {
-                timestamp
-                raw
-                count
-              }
-            }`,
-            data: {id: result.id, block: {
-              timestamp: result.timestamp,
+            id: block_id,
+            query,
+            data: {block: [...data.block, {
+              hash: result.timestamp,
               raw: result,
-              count: result.input_transactions.length,
-            }}
+              action: result.input_transactions.length,
+            }]}
           });
 
+          data = this.props.client.readQuery({query})
+
           if (i == 9) {
-            console.log('wwwww')
             this.fireInitialQuery()
           }
         });
@@ -63,55 +71,13 @@ class App extends Component {
   }
   
   render() {
-    var data = [
-      {
-        hash: 1, 
-        action: 'Gob',
-        expand: [ {
-          fieldA: 'test1',
-          fieldB: 'swag',
-          fieldC: Math.random(),
-          fieldD: '123eedd',
-        }, {
-          fieldA: 'test1',
-          fieldC: Math.random(),
-          fieldD: '123eedd',
-        } ]
-      },
-      {
-        hash: 2, 
-        action: 'Gob',
-        expand: [ {
-          fieldA: 'test2',
-          fieldC: Math.random(),
-          fieldD: '123eedd',
-        }, {
-          fieldA: 'test1',
-          fieldC: Math.random(),
-          fieldD: '123eedd',
-        } ]
-      },
-      {
-        hash: 3, 
-        action: 'Gob',
-        expand: [ {
-          fieldA: 'test3',
-          fieldC: Math.random(),
-          fieldD: '123eedd',
-        }, {
-          fieldA: 'test1',
-          fieldC: Math.random(),
-          fieldD: '123eedd',
-        } ]
-      },
-    ];
 
     const query = gql`
-    query readBlock {
-      block(raw: String, count: String, timestamp: String) {
-        timestamp
-        raw
-        count
+    {
+      block {
+        hash,
+        raw,
+        action
       }
     }`;
 
@@ -129,10 +95,8 @@ class App extends Component {
             if (loading) return "Loading...";
             if (error) return `Error! ${error.message}`;
 
-            console.log(data);
-
             return (
-              <ExpandRow data={data}/>
+              <ExpandRow data={data.block}/>
             );
           }}
         </Query>
