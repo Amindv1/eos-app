@@ -1,4 +1,3 @@
-// import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import Eos from 'eosjs';
 import React, { Component } from 'react';
 import logo from './logo.svg';
@@ -85,6 +84,8 @@ class App extends Component {
           {({ loading, error, data }) => {
             if (loading) return "Loading...";
             if (error) return `Error! ${error.message}`;
+
+            console.log(data);
 
             return (
               <ExpandRow data={data.block}/>

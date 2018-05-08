@@ -1,0 +1,146 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Expand row renderes without crashing 1`] = `
+<BootstrapTable
+  autoCollapse={
+    Object {
+      "filter": false,
+      "search": false,
+      "sort": false,
+    }
+  }
+  bodyContainerClass={null}
+  bordered={true}
+  cellEdit={
+    Object {
+      "afterSaveCell": undefined,
+      "beforeSaveCell": undefined,
+      "blurToEscape": false,
+      "blurToSave": false,
+      "mode": "none",
+      "nonEditableRows": undefined,
+    }
+  }
+  columnFilter={false}
+  condensed={false}
+  containerClass={null}
+  csvFileName="spreadsheet.csv"
+  data={
+    Array [
+      Object {},
+    ]
+  }
+  deleteRow={false}
+  expandColumnOptions={
+    Object {
+      "expandColumnBeforeSelectColumn": true,
+      "expandColumnComponent": undefined,
+      "expandColumnVisible": false,
+      "expandedColumnHeaderComponent": undefined,
+    }
+  }
+  expandComponent={[Function]}
+  expandableRow={[Function]}
+  exportCSV={false}
+  fetchInfo={
+    Object {
+      "dataTotalSize": 0,
+    }
+  }
+  footer={false}
+  headerContainerClass={null}
+  height="100%"
+  hover={false}
+  ignoreSinglePage={false}
+  insertRow={false}
+  keyBoardNav={false}
+  multiColumnSearch={false}
+  multiColumnSort={1}
+  options={
+    Object {
+      "expandRowBgColor": "rgb(242, 255, 163)",
+    }
+  }
+  pagination={false}
+  printable={false}
+  renderAlert={true}
+  replace={false}
+  search={true}
+  selectRow={
+    Object {
+      "bgColor": "",
+      "clickToExpand": false,
+      "clickToSelect": false,
+      "clickToSelectAndEditCell": false,
+      "customComponent": undefined,
+      "hideSelectColumn": false,
+      "mode": "none",
+      "onSelect": undefined,
+      "onSelectAll": undefined,
+      "onlyUnselectVisible": false,
+      "selected": Array [],
+      "showOnlySelected": false,
+      "unselectable": Array [],
+    }
+  }
+  striped={false}
+  tableBodyClass={null}
+  tableContainerClass={null}
+  tableFooterClass={null}
+  tableHeaderClass={null}
+  trClassName=""
+  version="3"
+  withoutTabIndex={false}
+>
+  <TableHeaderColumn
+    className=""
+    columnClassName=""
+    columnTitle={false}
+    csvFieldType="string"
+    dataAlign="left"
+    dataField="hash"
+    dataSort={false}
+    defaultASC={false}
+    editColumnClassName=""
+    editable={true}
+    expandable={true}
+    filterFormatted={false}
+    headerTitle={true}
+    hidden={false}
+    hiddenOnInsert={false}
+    invalidEditColumnClassName=""
+    isKey={true}
+    keyValidator={false}
+    searchable={true}
+    sortIndicator={true}
+    width={null}
+  >
+    Block Timestamp Hash
+  </TableHeaderColumn>
+  <TableHeaderColumn
+    className=""
+    columnClassName=""
+    columnTitle={false}
+    csvFieldType="string"
+    dataAlign="left"
+    dataField="action"
+    dataSort={false}
+    defaultASC={false}
+    editColumnClassName=""
+    editable={true}
+    expandable={true}
+    filterFormatted={false}
+    headerTitle={true}
+    hidden={false}
+    hiddenOnInsert={false}
+    invalidEditColumnClassName=""
+    isKey={false}
+    keyValidator={false}
+    searchable={true}
+    sortIndicator={true}
+    width={null}
+  >
+    Action
+  </TableHeaderColumn>
+</BootstrapTable>
+`;
