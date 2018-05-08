@@ -1,20 +1,6 @@
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import React from 'react';
-// import BSTable from './BSTable'
-
-class BSTable extends React.Component {
-  render() {
-    if (this.props.data) {
-      let style = { "tableLayout": "fixed", "wordWrap": "breakWord", whiteSpace: 'normal' }
-      return (
-        <BootstrapTable data={ this.props.data }>
-          <TableHeaderColumn tdStyle={style} thStyle={style} dataField='raw' isKey={true}>Raw data</TableHeaderColumn>
-        </BootstrapTable>);
-    } else {
-      return (<p>?</p>);
-    }
-  }
-}
+import BSTable from './BSTable'
 
 class ExpandRow extends React.Component {
   isExpandableRow(row) {

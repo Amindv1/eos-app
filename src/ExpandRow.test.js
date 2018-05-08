@@ -37,6 +37,25 @@ it('bootstrap table present', () => {
   const wrapper = shallow(<ExpandRow data={data.block}/>);
   expect(wrapper.find(BootstrapTable).length).toBe(1);
   expect(wrapper.find(TableHeaderColumn).length).toBe(2);
+});
 
-  // tree.props.expandComponent();
+it('expand row shows raw data', () => {
+  const block = [{
+    hash: 1,
+    raw: "rawdata",
+    action: 0
+  }]
+  const data = {block}
+  const wrapper = mount((
+    <ExpandRow data={data.block}/>
+  ));
+  expect(wrapper.find('ExpandComponent').props().hidden).toBe(true)
+  expect(wrapper.find('tr').length).toBe(5);
+  expect(wrapper.find('td[children="1"]').length).toBe(1);
+  expect(toJson(wrapper)).toMatchSnapshot();
+
+  wrapper.find('td[children="1"]').simulate('click');
+  
+  expect(wrapper.find('ExpandComponent').props().hidden).toBe(false)
+  expect(toJson(wrapper)).toMatchSnapshot();
 });
